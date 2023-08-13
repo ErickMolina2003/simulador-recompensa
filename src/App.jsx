@@ -4,6 +4,7 @@ import './App.css';
 import { Cases } from './components/Cases';
 import { CreateCase } from './components/CreateCase';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { OpenCase } from './components/OpenCase';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/' Component={Cases}></Route>
           <Route path='/crear-caja' exact Component={CreateCase}></Route>
+          <Route path='/abrir-caja' exact Component={OpenCase}></Route>
         </Routes>
       </Router>
     </main>
