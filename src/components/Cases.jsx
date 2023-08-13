@@ -8,7 +8,7 @@ import Case5 from '../assets/case5.svg';
 
 export function Cases() {
   return (
-    <Container height={100} fluid className='cases-container'>
+    <Container fluid className='cases-container'>
       <Navbar>
         <Container>
           <Navbar.Brand className='text-white' href='#home'>
