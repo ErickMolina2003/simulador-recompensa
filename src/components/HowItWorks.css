@@ -1,0 +1,34 @@
+.how-it-works {
+    background-color: #f8f9fa;
+    padding: 5px 0;
+  }
+  
+  .how-it-works h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+  }
+
+  .how-it-works h4 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .how-it-works-content p {
+    font-size: 16px;
+  }
+  
+  .how-it-works-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .how-it-works-content {
+    padding: 20px;
+  }
+  .bullet-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: disc;
+    padding-left: 20px; 
+  }
+  
