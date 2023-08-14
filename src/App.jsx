@@ -14,11 +14,11 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Cases />} />
-          <Route path="/crear-caja" element={<CreateCase />} />
-          <Route path="/abrir-caja" element={<OpenCase />} />
-          <Route path="/EstadisticaObjeto" element={<EstadisticaObjeto />} />
-          <Route path="/EstadisticaCaja" element={<EstadisticaCaja />} />
+          <Route path='/' element={<Cases />} />
+          <Route path='/crear-caja' element={<CreateCase />} />
+          <Route path='/abrir-caja' element={<OpenCase />} />
+          <Route path='/estadistica-objeto' element={<EstadisticaObjeto />} />
+          <Route path='/estadistica-caja' element={<EstadisticaCaja />} />
         </Routes>
       </Router>
     </main>
