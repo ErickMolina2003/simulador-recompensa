@@ -11,7 +11,7 @@ export function NavBar() {
   return (
     <Navbar expand='lg'>
       <Container fluid>
-        <Navbar.Brand href='#home'>
+        <Navbar.Brand as={Link} to='/'>
           <img src={CaseLogo} width={200} alt='Simulador de Recompensa'></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='navbarScroll' />
@@ -43,7 +43,7 @@ export function NavBar() {
               />
               Estadística Caja
             </Nav.Link>
-            <Nav.Link as={Link} to='/estadistica-caja'>
+            <Nav.Link as={Link} to='/como-funciona'>
               <img src={InfoLogo} alt='funcionamiento' width={30} height={15} />
               Cómo funciona
             </Nav.Link>
