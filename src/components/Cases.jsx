@@ -1,4 +1,5 @@
 import { Container, Form, Navbar, Button, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import './cases.css';
 import Case1 from '../assets/case1.svg';
 import Case2 from '../assets/case2.svg';
@@ -7,6 +8,12 @@ import Case4 from '../assets/case4.svg';
 import Case5 from '../assets/case5.svg';
 
 export function Cases() {
+  const navigate = useNavigate();
+
+  function openCase() {
+    navigate('/abrir-caja');
+  }
+
   return (
     <Container fluid className='cases-container'>
       <Navbar>
@@ -29,7 +36,7 @@ export function Cases() {
         </Container>
       </Navbar>
       <Row>
-        <Col sm={3} md={3} lg={3}>
+        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
           <Row>
             <Col
               sm={12}
@@ -44,7 +51,7 @@ export function Cases() {
             </Col>
           </Row>
         </Col>
-        <Col sm={3} md={3} lg={3}>
+        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
           <Row>
             <Col
               sm={12}
@@ -59,7 +66,7 @@ export function Cases() {
             </Col>
           </Row>
         </Col>
-        <Col sm={3} md={3} lg={3}>
+        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
           <Row>
             <Col
               sm={12}
@@ -74,7 +81,7 @@ export function Cases() {
             </Col>
           </Row>
         </Col>
-        <Col sm={3} md={3} lg={3}>
+        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
           <Row>
             <Col
               sm={12}
@@ -89,7 +96,7 @@ export function Cases() {
             </Col>
           </Row>
         </Col>
-        <Col sm={3} md={3} lg={3}>
+        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
           <Row>
             <Col
               sm={12}
