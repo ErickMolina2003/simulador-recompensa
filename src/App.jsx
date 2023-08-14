@@ -5,7 +5,6 @@ import { Cases } from "./components/Cases";
 import { CreateCase } from "./components/CreateCase";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { OpenCase } from "./components/OpenCase";
-import { HowItWorks } from "./components/HowItWorks";
 
 function App() {
   return (
