@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Cases />} />
           <Route path='/crear-caja' element={<CreateCase />} />
-          <Route path='/abrir-caja' element={<OpenCase />} />
+          <Route path='/abrir-caja/*' element={<OpenCase />} />
           <Route path='/estadistica-objeto' element={<EstadisticaObjeto />} />
           <Route path='/estadistica-caja' element={<EstadisticaCaja />} />
           <Route path='/como-funciona' element={<HowItWorks />} />

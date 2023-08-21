@@ -2,16 +2,15 @@ import { Container, Form, Navbar, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './cases.css';
 import Case1 from '../assets/case1.svg';
-import Case2 from '../assets/case2.svg';
-import Case3 from '../assets/case3.svg';
-import Case4 from '../assets/case4.svg';
-import Case5 from '../assets/case5.svg';
+import { useCases } from '../hooks/useCases';
 
 export function Cases() {
+  const { cases, loading } = useCases();
+
   const navigate = useNavigate();
 
-  function openCase() {
-    navigate('/abrir-caja');
+  function openCase(id) {
+    navigate(`/abrir-caja/${id}`);
   }
 
   return (
@@ -36,81 +35,36 @@ export function Cases() {
         </Container>
       </Navbar>
       <Row>
-        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
-          <Row>
+        {cases &&
+          cases.map((casess) => (
             <Col
-              sm={12}
-              md={12}
-              lg={12}
-              className='d-flex justify-content-center px-0'
+              key={casess.id}
+              sm={3}
+              md={3}
+              lg={3}
+              onClick={() => {
+                openCase(casess.id);
+              }}
+              role='button'
             >
-              <img src={Case1} alt='Caja' width={150} height={150} />
+              <Row>
+                <Col
+                  sm={12}
+                  md={12}
+                  lg={12}
+                  className='d-flex justify-content-center px-0'
+                >
+                  <img src={Case1} alt='Caja' width={150} height={150} />
+                </Col>
+                <Col sm={12} md={12} lg={12}>
+                  <h5 className='text-white text-center px-0'>
+                    {casess.nombre}
+                  </h5>
+                </Col>
+              </Row>
             </Col>
-            <Col sm={12} md={12} lg={12}>
-              <h5 className='text-white text-center px-0'>Caja1</h5>
-            </Col>
-          </Row>
-        </Col>
-        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
-          <Row>
-            <Col
-              sm={12}
-              md={12}
-              lg={12}
-              className='d-flex justify-content-center px-0'
-            >
-              <img src={Case2} alt='Caja' width={150} height={150} />
-            </Col>
-            <Col sm={12} md={12} lg={12}>
-              <h5 className='text-white text-center px-0'>Caja1</h5>
-            </Col>
-          </Row>
-        </Col>
-        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
-          <Row>
-            <Col
-              sm={12}
-              md={12}
-              lg={12}
-              className='d-flex justify-content-center px-0'
-            >
-              <img src={Case3} alt='Caja' width={150} height={150} />
-            </Col>
-            <Col sm={12} md={12} lg={12}>
-              <h5 className='text-white text-center px-0'>Caja1</h5>
-            </Col>
-          </Row>
-        </Col>
-        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
-          <Row>
-            <Col
-              sm={12}
-              md={12}
-              lg={12}
-              className='d-flex justify-content-center px-0'
-            >
-              <img src={Case4} alt='Caja' width={150} height={150} />
-            </Col>
-            <Col sm={12} md={12} lg={12}>
-              <h5 className='text-white text-center px-0'>Caja1</h5>
-            </Col>
-          </Row>
-        </Col>
-        <Col sm={3} md={3} lg={3} onClick={openCase} role="button">
-          <Row>
-            <Col
-              sm={12}
-              md={12}
-              lg={12}
-              className='d-flex justify-content-center px-0'
-            >
-              <img src={Case5} alt='Caja' width={150} height={150} />
-            </Col>
-            <Col sm={12} md={12} lg={12}>
-              <h5 className='text-white text-center px-0'>Caja1</h5>
-            </Col>
-          </Row>
-        </Col>
+          ))}
+        {loading && <h1>No hay ninguna caja</h1>}
       </Row>
     </Container>
   );

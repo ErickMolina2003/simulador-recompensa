@@ -1,24 +1,46 @@
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import BoxLogo from '../assets/case.svg';
-import Case1 from '../assets/case1.svg';
-import Case2 from '../assets/case2.svg';
-import Case3 from '../assets/case3.svg';
-import Case4 from '../assets/case4.svg';
-import Case5 from '../assets/case5.svg';
-import Object from '../assets/object.svg';
-import Object1 from '../assets/object1.svg';
-import Object2 from '../assets/object2.svg';
-import Object3 from '../assets/object3.svg';
-import Object4 from '../assets/object4.svg';
-import Object5 from '../assets/object5.svg';
-import Object6 from '../assets/object6.svg';
-import Object7 from '../assets/object7.svg';
-import Object8 from '../assets/object8.svg';
+import Objectt from '../assets/object.svg';
+import RareItem from '../assets/rare-item.png';
 import { useState } from 'react';
 import { ObjectModal } from './ObjectModal';
+import { useNavigate } from 'react-router-dom';
+import { createNewCase } from '../services/cases';
 
 export function CreateCase() {
   const [modalShow, setModalShow] = useState(false);
+  const [nombre, setNombre] = useState('');
+  const [precio, setPrecio] = useState('');
+  const [objetos, setObjetos] = useState([]);
+
+  const navigate = useNavigate();
+
+  function handleNombreChange(e) {
+    setNombre(e.target.value);
+  }
+
+  function handlePrecioChange(e) {
+    setPrecio(e.target.value);
+  }
+
+  function createCase() {
+    if (nombre.trim() == '' || precio.trim() == '' || objetos.length == 0) {
+      alert(
+        'El nombre o precio no pueden estar vacios y debe de agregar objetos a su caja'
+      );
+      return;
+    }
+
+    createNewCase(nombre, precio, objetos);
+    setNombre('');
+    setPrecio('');
+    navigate('/');
+  }
+
+  function handleObjectCreated(newObject) {
+    const objects = [...objetos, newObject];
+    setObjetos(objects);
+  }
 
   return (
     <Container fluid className='cases-container'>
@@ -39,45 +61,31 @@ export function CreateCase() {
           <Form>
             <Form.Group className='mb-3' controlId='formBasicEmail'>
               <Form.Label className='text-white'>Nombre</Form.Label>
-              <Form.Control type='text' placeholder='Cosas varias' />
+              <Form.Control
+                type='text'
+                placeholder='Cosas varias'
+                value={nombre}
+                onChange={handleNombreChange}
+              />
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='formBasicPassword'>
               <Form.Label className='text-white'>Precio</Form.Label>
-              <Form.Control type='text' placeholder='L 500' />
+              <Form.Control
+                type='number'
+                placeholder='L 500'
+                value={precio}
+                onChange={handlePrecioChange}
+              />
             </Form.Group>
 
-            <Button variant='success'>Crear</Button>
+            <Button variant='success' onClick={createCase}>
+              Crear
+            </Button>
           </Form>
         </Col>
-        <Col>
-          <Row>
-            <Col sm={'auto'} md={'auto'} lg={'auto'}>
-              <h5 className='text-white'>Imagen:</h5>
-            </Col>
-            <Col>
-              <Row>
-                <Col sm={4} md={4} lg={4}>
-                  <img src={Case1} alt='caja' width={125} height={125} />
-                </Col>
-                <Col sm={4} md={4} lg={4}>
-                  <img src={Case2} alt='caja' width={125} height={125} />
-                </Col>
-                <Col sm={4} md={4} lg={4}>
-                  <img src={Case3} alt='caja' width={125} height={125} />
-                </Col>
-                <Col sm={4} md={4} lg={4}>
-                  <img src={Case4} alt='caja' width={125} height={125} />
-                </Col>
-                <Col sm={4} md={4} lg={4}>
-                  <img src={Case5} alt='caja' width={125} height={125} />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
       </Row>
-      <Row className='mx-2' style={{ border: '1px solid white' }}>
+      <Row className='mx-2 mt-3' style={{ border: '1px solid white' }}>
         <Col sm={12} md={12} lg={12}>
           <h5 className='text-white'>Objetos</h5>
         </Col>
@@ -88,34 +96,33 @@ export function CreateCase() {
           lg={'auto'}
           onClick={() => setModalShow(true)}
         >
-          <img src={Object} alt='crear objeto' width={100} height={100} />
+          <img src={Objectt} alt='crear objeto' width={100} height={100} />
         </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object1} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object2} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object3} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object4} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object5} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object6} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object7} alt='crear objeto' width={100} height={100} />
-        </Col>
-        <Col sm={'auto'} md={'auto'} lg={'auto'}>
-          <img src={Object8} alt='crear objeto' width={100} height={100} />
-        </Col>
+        {objetos &&
+          objetos.map((objeto) => (
+            <Col
+              className='d-flex flex-column align-items-center'
+              key={objeto.nombre}
+              sm={'auto'}
+              md={'auto'}
+              lg={'auto'}
+            >
+              <img src={RareItem} alt='crear objeto' width={100} height={100} />
+              <p className='text-center text-white'>
+                {`${objeto.nombre} L ${objeto.precio}`}
+              </p>
+              <p className='text-center text-white'>
+                {`${objeto.probabilidad} %`}
+              </p>
+            </Col>
+          ))}
       </Row>
-      <ObjectModal show={modalShow} onHide={() => setModalShow(false)} />
+      <ObjectModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        allObjects={objetos}
+        onCreatedObject={handleObjectCreated}
+      />
     </Container>
   );
 }
