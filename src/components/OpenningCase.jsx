@@ -1,13 +1,12 @@
 import './OpenningCase.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { SummaryModal } from './SummaryModal'; 
+import { SummaryModal } from './SummaryModal';
 
 export function OpenningCase(objetos) {
   const [img, setImage] = useState({});
   const [objetoObtenido, setObjetoObtenido] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
-
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     objetos.objetos.sort(function (a, b) {
@@ -81,7 +80,6 @@ export function OpenningCase(objetos) {
           parseInt(objetos.objetos[0]?.probabilidad) +
             parseInt(objetos.objetos[1]?.probabilidad)
       ) {
-
         card.style.backgroundImage = `url(${objetos.objetos[1]?.imagen})`;
         card.style.backgroundSize = 'cover';
         card.style.backgroundPosition = 'center';
@@ -199,14 +197,13 @@ export function OpenningCase(objetos) {
     objetos.objetos.forEach((objeto, index) => {
       if (index == newObjetoObtenido) {
         const nuevosObjetos = [...objetoObtenido, objeto];
-        console.log(nuevosObjetos)
+        console.log(nuevosObjetos);
         setObjetoObtenido(nuevosObjetos);
         return;
       }
     });
     setShowModal(true);
   }
-  
 
   function easeInOutBack(t) {
     const c1 = 1.70158;
@@ -233,7 +230,17 @@ export function OpenningCase(objetos) {
           </Button>
         </Col>
       </Row>
-      <SummaryModal objetoObtenido={objetoObtenido} show={showModal} onHide={() => setShowModal(false)} />
+      <Row className='justify-content-center mt-3'>
+        <Col sm={'auto'} md={'auto'} lg={'auto'}>
+          <SummaryModal
+            objetoObtenido={objetoObtenido}
+            precioCaja={objetos.precioCaja}
+            nombreCaja={objetos.nombreCaja}
+            show={showModal}
+            onHide={() => setShowModal(false)}
+          />
+        </Col>
+      </Row>
     </>
   );
 }

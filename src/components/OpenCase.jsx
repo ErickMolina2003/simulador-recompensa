@@ -6,21 +6,17 @@ import { OpenningCase } from './OpenningCase';
 import { useCases } from '../hooks/useCases';
 
 export function OpenCase() {
-  
   const [openningCase, setOpenningCase] = useState(false);
   const paths = window.location.href.split('/');
 
   const { filteredCase } = useCases(paths[paths.length - 1]);
-
 
   function openCase() {
     setOpenningCase(true);
   }
 
   return (
-    
     <Container fluid className='cases-container'>
-    
       {filteredCase && (
         <Row className='justify-content-center'>
           <Col sm={'auto'} md={'auto'} lg={'auto'}>
@@ -68,7 +64,12 @@ export function OpenCase() {
               md={3}
               lg={3}
             >
-              <img src={casse.imagen ?? RareItem} alt='crear objeto' width={100} height={100} />
+              <img
+                src={casse.imagen ?? RareItem}
+                alt='crear objeto'
+                width={100}
+                height={100}
+              />
               <p className='p-0'>{casse.nombre}</p>
               <p className='p-0'>{casse.precio}</p>
               <p className='p-0'>{casse.probablidad}</p>
@@ -76,15 +77,18 @@ export function OpenCase() {
           ))}
         </Row>
       )}
-      
-      {openningCase && (
+
+      {openningCase && filteredCase && (
         <Row className='justify-content-center mt-4'>
           <Col sm={'auto'} md={'auto'} lg={'auto'}>
-            <OpenningCase objetos={filteredCase.objetos}/>
+            <OpenningCase
+              nombreCaja={filteredCase.nombre}
+              precioCaja={filteredCase.precio}
+              objetos={filteredCase.objetos}
+            />
           </Col>
         </Row>
       )}
-      
     </Container>
   );
 }

@@ -1,5 +1,6 @@
 import { Col, Modal, Row, Table } from 'react-bootstrap';
 import Check from '../assets/check.svg';
+import Cancel from '../assets/cancel.svg';
 import { useState } from 'react';
 import Summary from '../assets/summary.svg';
 import PropTypes from 'prop-types';
@@ -8,13 +9,16 @@ export function SummaryModal(props) {
   const [show, setShow] = useState(false);
   const { objetoObtenido } = props;
 
-  var valor = 800; // Cambiar por precio(props) en donde el usuario ingresa el valor de la caja.
-  var gananciasTotales = 0; 
+  var valor = props.precioCaja; // Cambiar por precio(props) en donde el usuario ingresa el valor de la caja.
+  var gananciasTotales = 0;
 
   const handleClose = () => setShow(false);
 
   SummaryModal.propTypes = {
-    objetoObtenido: PropTypes.array.isRequired,};
+    objetoObtenido: PropTypes.array.isRequired,
+    precioCaja: PropTypes.string.isRequired,
+    nombreCaja: PropTypes.string.isRequired,
+  };
 
   return (
     <>
@@ -52,7 +56,9 @@ export function SummaryModal(props) {
         <Modal.Body>
           <Row>
             <Col sm={12} md={12} lg={12}>
-              <h5>Cosas Varias - L {valor}</h5>
+              <h5>
+                {props.nombreCaja} - L {valor}
+              </h5>
             </Col>
           </Row>
           <Row>
@@ -83,23 +89,25 @@ export function SummaryModal(props) {
                         <td>{objeto.nombre}</td>
                         <td>L {objeto.precio}</td>
                         <td className='d-flex justify-content-center'>
-                          {porcentaje.toFixed(2)}% {/* Mostrar el porcentaje con 2 decimales */}
+                          {porcentaje.toFixed(2)}%{' '}
+                          {/* Mostrar el porcentaje con 2 decimales */}
                           <img
                             className='ms-1'
-                            src={Check}
+                            src={parseInt(objeto.precio) > parseInt(valor) ? Check : Cancel}
                             alt='positivo'
                             width={20}
                             height={20}
                           />
                         </td>
-                        <td>L {ganancia < 0 ? -ganancia : 0}</td> {/* Perdida o 0 si es ganancia */}
-                        <td>L {ganancia}</td> {/* Ganancia */}
+                        <td>L {ganancia < 0 ? -ganancia : 0}</td>{' '}
+                        {/* Perdida o 0 si es ganancia */}
+                        <td>L {ganancia > 0 ? ganancia : 0}</td> {/* Ganancia */}
                       </tr>
                     );
                   })
                 ) : (
                   <tr>
-                    <td colSpan="6">No se han obtenido objetos aún.</td>
+                    <td colSpan='6'>No se han obtenido objetos aún.</td>
                   </tr>
                 )}
               </tbody>
@@ -107,7 +115,8 @@ export function SummaryModal(props) {
           </Row>
         </Modal.Body>
         <Modal.Footer className='d-flex justify-content-center'>
-          <h5>Total Ganancia: L {gananciasTotales}</h5> {/* Mostrar el total de ganancias */}
+          <h5>Total Ganancia: L {gananciasTotales}</h5>{' '}
+          {/* Mostrar el total de ganancias */}
         </Modal.Footer>
       </Modal>
     </>
