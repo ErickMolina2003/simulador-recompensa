@@ -3,3 +3,11 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.photo-option {
+  cursor: pointer;
+}
+
+.activePhoto {
+  background-color: #c1a1e5;
+}
