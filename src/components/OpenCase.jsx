@@ -1,14 +1,12 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import Summary from '../assets/summary.svg';
 import Case1 from '../assets/case1.svg';
 import RareItem from '../assets/rare-item.png';
 import { useState } from 'react';
-import { SummaryModal } from './SummaryModal';
 import { OpenningCase } from './OpenningCase';
 import { useCases } from '../hooks/useCases';
 
 export function OpenCase() {
-  const [modalShow, setModalShow] = useState(false);
+  
   const [openningCase, setOpenningCase] = useState(false);
   const paths = window.location.href.split('/');
 
@@ -20,26 +18,9 @@ export function OpenCase() {
   }
 
   return (
+    
     <Container fluid className='cases-container'>
-      <Row className='my-3'>
-        <Col
-          role='button'
-          sm={12}
-          md={12}
-          lg={12}
-          className='d-flex'
-          onClick={() => setModalShow(true)}
-        >
-          <img
-            src={Summary}
-            alt='resumen'
-            width={25}
-            height={30}
-            className='me-2'
-          />
-          <h4 className='text-white'>Resumen Financiero</h4>
-        </Col>
-      </Row>
+    
       {filteredCase && (
         <Row className='justify-content-center'>
           <Col sm={'auto'} md={'auto'} lg={'auto'}>
@@ -95,6 +76,7 @@ export function OpenCase() {
           ))}
         </Row>
       )}
+      
       {openningCase && (
         <Row className='justify-content-center mt-4'>
           <Col sm={'auto'} md={'auto'} lg={'auto'}>
@@ -102,7 +84,7 @@ export function OpenCase() {
           </Col>
         </Row>
       )}
-      <SummaryModal show={modalShow} onHide={() => setModalShow(false)} />
+      
     </Container>
   );
 }
