@@ -107,7 +107,12 @@ export function CreateCase() {
               md={'auto'}
               lg={'auto'}
             >
-              <img src={RareItem} alt='crear objeto' width={100} height={100} />
+              <img
+                src={objeto.imagen}
+                alt='crear objeto'
+                width={100}
+                height={100}
+              />
               <p className='text-center text-white'>
                 {`${objeto.nombre} L ${objeto.precio}`}
               </p>

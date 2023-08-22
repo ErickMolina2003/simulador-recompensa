@@ -1,19 +1,24 @@
 import './OpenningCase.css';
-import Object1 from '../assets/object1.svg';
-import Object2 from '../assets/object2.svg';
-import Object3 from '../assets/object3.svg';
-import Object4 from '../assets/object4.svg';
-import Object5 from '../assets/object5.svg';
 import { Button, Col, Row } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 
-export function OpenningCase() {
-  var img = {
-    blue: `<img src="${Object1}"/>`,
-    purple: `<img src="${Object2}"/>`,
-    pink: `<img src="${Object3}"/>`,
-    red: `<img src="${Object4}"/>`,
-    yellow: `<img src="${Object5}"/>`,
-  };
+export function OpenningCase(objetos) {
+  const [img, setImage] = useState({});
+  const [objetoObtenido, setObjetoObtenido] = useState([]);
+
+  useEffect(() => {
+    objetos.objetos.sort(function (a, b) {
+      return b.probabilidad - a.probabilidad;
+    });
+
+    setImage({
+      blue: `<p id="0">${objetos.objetos[0]?.nombre}<p/><p>L ${objetos.objetos[0]?.precio}</p><p>${objetos.objetos[0]?.probabilidad}%</p>`,
+      purple: `<p id="1">${objetos.objetos[1]?.nombre}<p/><p>L ${objetos.objetos[1]?.precio}</p><p>${objetos.objetos[1]?.probabilidad}%</p>`,
+      pink: `<p id="2">${objetos.objetos[2]?.nombre}<p/><p>L ${objetos.objetos[2]?.precio}</p><p>${objetos.objetos[2]?.probabilidad}%</p>`,
+      red: `<p id="3">${objetos.objetos[3]?.nombre}<p/><p>L ${objetos.objetos[3]?.precio}</p><p>${objetos.objetos[3]?.probabilidad}%</p>`,
+      yellow: `<p id="4">${objetos.objetos[4]?.nombre}<p/><p>L ${objetos.objetos[4]?.precio}</p><p>${objetos.objetos[4]?.probabilidad}%</p>`,
+    });
+  }, [objetos]);
 
   function animateMarginLeft(element, targetMargin, duration, callback) {
     var startMargin = parseInt(getComputedStyle(element).marginLeft);
@@ -57,27 +62,62 @@ export function OpenningCase() {
     for (var i = 0; i < 210; i++) {
       var card = document.createElement('div');
       card.className = 'card';
-      card.style.backgroundColor = 'lightblue';
-      card.setAttribute('data-rarity', 'blue');
       card.id = 'itemNumber' + i;
-      card.innerHTML = img.blue;
       cardList.appendChild(card);
 
-      var rand = random(1, 10000) / 100;
-      if (rand < 20) {
-        card.style.backgroundColor = 'purple';
+      var rand = random(1, 100);
+      if (rand <= parseInt(objetos.objetos[0]?.probabilidad)) {
+        card.style.backgroundImage = `url(${objetos.objetos[0]?.imagen})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
+        card.setAttribute('data-rarity', 'blue');
+        card.innerHTML = img.blue;
+      } else if (
+        rand > parseInt(objetos.objetos[0]?.probabilidad) &&
+        rand <=
+          parseInt(objetos.objetos[0]?.probabilidad) +
+            parseInt(objetos.objetos[1]?.probabilidad)
+      ) {
+
+        card.style.backgroundImage = `url(${objetos.objetos[1]?.imagen})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
         card.setAttribute('data-rarity', 'purple');
         card.innerHTML = img.purple;
-      } else if (rand < 5) {
-        card.style.backgroundColor = 'hotpink';
+      } else if (
+        rand >
+          parseInt(objetos.objetos[0]?.probabilidad) +
+            parseInt(objetos.objetos[1]?.probabilidad) &&
+        rand <=
+          parseInt(objetos.objetos[0]?.probabilidad) +
+            parseInt(objetos.objetos[1]?.probabilidad) +
+            parseInt(objetos.objetos[2]?.probabilidad)
+      ) {
+        card.style.backgroundImage = `url(${objetos.objetos[2]?.imagen})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
         card.setAttribute('data-rarity', 'pink');
         card.innerHTML = img.pink;
-      } else if (rand < 2) {
-        card.style.backgroundColor = 'red';
+      } else if (
+        rand >
+          parseInt(objetos.objetos[0]?.probabilidad) +
+            parseInt(objetos.objetos[1]?.probabilidad) +
+            parseInt(objetos.objetos[2]?.probabilidad) &&
+        rand <
+          parseInt(objetos.objetos[0]?.probabilidad) +
+            parseInt(objetos.objetos[1]?.probabilidad) +
+            parseInt(objetos.objetos[2]?.probabilidad) +
+            parseInt(objetos.objetos[3]?.probabilidad)
+      ) {
+        card.style.backgroundImage = `url(${objetos.objetos[3]?.imagen})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
         card.setAttribute('data-rarity', 'red');
         card.innerHTML = img.red;
-      } else if (rand < 0.5) {
-        card.style.backgroundColor = 'yellow';
+      } else {
+        card.style.backgroundImage = `url(${objetos.objetos[4]?.imagen})`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
         card.setAttribute('data-rarity', 'yellow');
         card.innerHTML = img.yellow;
       }
@@ -149,9 +189,18 @@ export function OpenningCase() {
 
     var allCards = document.querySelectorAll('.card');
     for (var i = 0; i < allCards.length; i++) {
-      allCards[i].style.backgroundColor = 'red';
+      // allCards[i].style.backgroundColor = 'red';
     }
     allCards[childNumber].style.backgroundColor = 'green';
+    const newObjetoObtenido = allCards[childNumber].childNodes[0].id;
+    objetos.objetos.forEach((objeto, index) => {
+      if (index == newObjetoObtenido) {
+        const nuevosObjetos = [...objetoObtenido, objeto];
+        console.log(nuevosObjetos);
+        setObjetoObtenido(nuevosObjetos);
+        return;
+      }
+    });
   }
 
   function easeInOutBack(t) {
