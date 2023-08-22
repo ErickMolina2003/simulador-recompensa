@@ -1,8 +1,8 @@
-import { Container, Form, Navbar, Button, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import './cases.css';
-import Case1 from '../assets/case1.svg';
-import { useCases } from '../hooks/useCases';
+import { Container, Form, Navbar, Button, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import "./cases.css";
+import Case1 from "../assets/case1.svg";
+import { useCases } from "../hooks/useCases";
 
 export function Cases() {
   const { cases, loading } = useCases();
@@ -14,24 +14,13 @@ export function Cases() {
   }
 
   return (
-    <Container fluid className='cases-container'>
+    <Container fluid className="cases-container">
       <Navbar>
         <Container>
-          <Navbar.Brand className='text-white' href='#home'>
+          <Navbar.Brand className="text-white" href="#home">
             TODAS LAS CAJAS
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbarScroll' />
-          <Navbar.Collapse id='navbarScroll' className='justify-content-end'>
-            <Form className='d-flex'>
-              <Form.Control
-                type='search'
-                placeholder='Buscar'
-                className='me-2'
-                aria-label='Search'
-              />
-              <Button variant='outline-success'>Buscar</Button>
-            </Form>
-          </Navbar.Collapse>
+          <Navbar.Toggle aria-controls="navbarScroll" />
         </Container>
       </Navbar>
       <Row>
@@ -45,19 +34,19 @@ export function Cases() {
               onClick={() => {
                 openCase(casess.id);
               }}
-              role='button'
+              role="button"
             >
               <Row>
                 <Col
                   sm={12}
                   md={12}
                   lg={12}
-                  className='d-flex justify-content-center px-0'
+                  className="d-flex justify-content-center px-0"
                 >
-                  <img src={Case1} alt='Caja' width={150} height={150} />
+                  <img src={Case1} alt="Caja" width={150} height={150} />
                 </Col>
                 <Col sm={12} md={12} lg={12}>
-                  <h5 className='text-white text-center px-0'>
+                  <h5 className="text-white text-center px-0">
                     {casess.nombre}
                   </h5>
                 </Col>

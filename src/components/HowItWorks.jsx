@@ -9,7 +9,7 @@ export function HowItWorks() {
           <Col>
             <div className="how-it-works-content">
               <h2>¿Cómo funciona?</h2>
-              <p>
+              <p style={{ color: "black" }}>
                 El Simulador de Recompensas es una herramienta interactiva que
                 te permite experimentar la emoción de abrir cajas virtuales para
                 ganar diversos objetos. A medida que abres cajas, puedes obtener
@@ -91,21 +91,43 @@ export function HowItWorks() {
                 </Accordion.Item>
                 <h4>Estadísiticas</h4>
                 <Accordion.Item eventKey="3">
-                  <Accordion.Header>Probabilidad de un Objeto</Accordion.Header>
+                  <Accordion.Header>Probabilidad de Objetos</Accordion.Header>
                   <Accordion.Body>
                     <ul>
                       <li>
                         Los usuarios pueden calcular la probabilidad de obtener
-                        un objeto específico en una caja.
+                        todos los objetos de una caja dado un número de
+                        intentos.
                       </li>
                       <li>
-                        Establece el número de intentos, la probabilidad de
-                        ocurrencia de cada objeto y el objeto que deseas
-                        calcular.
+                        Establece la cantidad de objetos (Se espera un enter
+                        luego de digitar la cantidad), el número de intentos y
+                        la probabilidad de ocurrencia de cada objeto
                       </li>
                       <li>
-                        Se Utiliza la fórmula de la distribución binomial
-                        negativa para obtener resultados precisos.
+                        Se utiliza la fórmula de la distribución binomial
+                        negativa para obtener resultados precisos:
+                        <ul>
+                          <li>
+                            <strong>
+                              P(X ≥ 1 en n ensayos) = 1 - P(X = 0 en n ensayos)
+                            </strong>{" "}
+                            Donde P(X = 0 en n ensayos) se calcula utilizando la
+                            fórmula de la distribución binomial negativa:{" "}
+                            <strong>
+                              P(X = k en n ensayos) = (n - 1 + k) C k * p^k * (1
+                              - p)^(n - 1)
+                            </strong>
+                          </li>
+                          <li>
+                            Donde: <strong>k</strong> es el número de éxitos (en
+                            este caso, k = 0 para calcular la probabilidad de
+                            que no aparezca el objeto), <strong>n</strong> es el
+                            número total de intentos y <strong>p</strong> es la
+                            probabilidad de ocurrencia del objeto en un solo
+                            intento
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </Accordion.Body>
@@ -121,13 +143,16 @@ export function HowItWorks() {
                         obtenido y lo retribuido de una caja.
                       </li>
                       <li>
-                        Define el número de veces que se abrirá una caja, la
-                        cantidad de objetos y el precio total de la caja.
+                        Define el número de veces que se abrirá la caja, la
+                        cantidad de objetos (Se espera un enter luego de digitar
+                        la cantidad), el precio total de la caja y luego el
+                        precio como la probabilidad de ocurrencia de cada
+                        objeto.
                       </li>
                       <li>
                         El simulador calculará lo obtenido, retribuido y el
-                        margen de ganancia basado en la probabilidad de
-                        ocurrencia y el precio de los objetos.
+                        margen de ganancia o pérdida basado en la probabilidad
+                        de ocurrencia y el precio de los objetos.
                       </li>
                     </ul>
                   </Accordion.Body>
