@@ -76,7 +76,7 @@ function EstadisticaObjeto() {
             height={30}
             className="me-2"
           />
-          <h3 className="text-white">ESTADISTICA CAJAS</h3>
+          <h3 className="text-white">ESTADÍSTICA CAJAS</h3>
         </Col>
       </Row>
       <Row className="my-1 mx-3">
